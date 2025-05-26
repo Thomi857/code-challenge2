@@ -1,8 +1,5 @@
-from lib.db.connection import get_connection  
-from lib.models.magazine import Magazine  # Import Magazine model
-from lib.models.article import Article
-
-
+import sqlite3
+from lib.db.connection import get_connection  # Assume you have this helper
 
 class Author:
     def __init__(self, name, id=None):
@@ -43,11 +40,26 @@ class Author:
         return cls(row[1], row[0]) if row else None
 
     def articles(self):
+        from lib.models.article import Article
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT id, title, author_id, magazine_id FROM articles WHERE author_id = ?", (self.id,))
         rows = cursor.fetchall()
         return [Article(row[1], row[2], row[3], row[0]) for row in rows]
+    
+    def magazines(self):
+        from lib.models.magazine import Magazine
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT DISTINCT m.id, m.name, m.category
+            FROM magazines m
+            JOIN articles a ON m.id = a.magazine_id
+            WHERE a.author_id = ?
+        """, (self.id,))
+        rows = cursor.fetchall()
+        return [Magazine(row[1], row[2], row[0]) for row in rows]
+    
 
     @classmethod
     def top_author(cls):
@@ -64,16 +76,11 @@ class Author:
         row = cursor.fetchone()
         return cls(row[1], row[0]) if row else None
 
+
     # ... existing __init__, save, find methods ...
 
-    def articles(self):
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute("SELECT id, title, author_id, magazine_id FROM articles WHERE author_id = ?", (self.id,))
-        rows = cursor.fetchall()
-        return [Article(row[1], row[2], row[3], row[0]) for row in rows]
-
     def magazines(self):
+        from lib.models.magazine import Magazine
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute("""
@@ -86,6 +93,8 @@ class Author:
         return [Magazine(row[1], row[2], row[0]) for row in rows]
 
     def add_article(self, magazine, title):
+        from lib.models.article import Article
+        from lib.models.magazine import Magazine
         if not isinstance(magazine, (Magazine,)):
             raise ValueError("Expected a Magazine instance")
         article = Article(title=title, author_id=self.id, magazine_id=magazine.id)
