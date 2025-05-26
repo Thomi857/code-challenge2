@@ -8,28 +8,28 @@ from lib.models.magazine import Magazine
 from lib.models.article import Article
 
 def run_debug_tests():
-    print("=== Setting up database ===")
+    print("Setting up database:")
     setup_database()
 
-    print("\n=== Seeding database ===")
+    print("\nSeeding database:")
     conn = get_connection()
     seed_database(conn)
 
-    print("\n=== Testing Author creation and lookup ===")
+    print("\nTesting Author creation and lookup:")
     author = Author.find_by_name("J.K. Rowling")
     if author:
         print(f"Found Author: {author.name} (ID: {author.id})")
     else:
         print("Author 'J.K. Rowling' not found.")
 
-    print("\n=== Testing Magazine creation and lookup ===")
+    print("\nTesting Magazine creation and lookup :")
     magazine = Magazine.find_by_name("Fantasy Today")
     if magazine:
         print(f"Found Magazine: {magazine.name} (Category: {magazine.category}, ID: {magazine.id})")
     else:
         print("Magazine 'Fantasy Today' not found.")
 
-    print("\n=== Testing Articles by Author ===")
+    print("\nTesting Articles by Author:")
     if author:
         articles = author.articles()
         if articles:
@@ -38,7 +38,7 @@ def run_debug_tests():
         else:
             print(f"No articles found for author {author.name}")
 
-    print("\n=== Testing Authors who wrote for a Magazine ===")
+    print("\nTesting Authors who wrote for a Magazine :")
     if magazine:
         articles = magazine.articles()
         authors = set()
