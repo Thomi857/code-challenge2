@@ -1,3 +1,7 @@
+from lib.db.connection import get_connection
+from lib.models.author import Author
+from lib.models.magazine import Magazine
+
 class Article:
     def __init__(self, title, author_id, magazine_id, id=None):
         self.id = id
@@ -56,11 +60,9 @@ class Article:
         return [cls(row[1], row[2], row[3], row[0]) for row in rows]
 
     def author(self):
-        from lib.models.author import Author
         return Author.find_by_id(self.author_id)
 
     def magazine(self):
-        from lib.models.magazine import Magazine
         return Magazine.find_by_id(self.magazine_id)
 class Article:
     def __init__(self, title, author_id, magazine_id, id=None):
