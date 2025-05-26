@@ -16,11 +16,11 @@ def seed_database(conn: Connection):
 
         # Create authors
         authors = [
-            Author("J.K. Rowling", "jk@example.com"),
-            Author("Stephen King", "sk@example.com"),
-            Author("George R.R. Martin", "grrm@example.com"),
-            Author("Agatha Christie", "ac@example.com"),
-            Author("Ernest Hemingway", "eh@example.com")
+            Author("J.K. Rowling"),
+            Author("Stephen King"),
+            Author("George R.R. Martin"),
+            Author("Agatha Christie"),
+            Author("Ernest Hemingway")
         ]
         for author in authors:
             author.save()
@@ -38,16 +38,16 @@ def seed_database(conn: Connection):
 
         # Create articles
         articles = [
-            Article(authors[0], magazines[0], "The Magic of World Building"),
-            Article(authors[0], magazines[4], "From Rags to Riches: My Writing Journey"),
-            Article(authors[1], magazines[1], "Why We Love to Be Scared"),
-            Article(authors[1], magazines[4], "Writing Every Day: A Discipline"),
-            Article(authors[2], magazines[0], "Complex Characters in Fantasy"),
-            Article(authors[2], magazines[0], "When Will Winds of Winter Come Out?"),
-            Article(authors[3], magazines[2], "The Perfect Murder Mystery"),
-            Article(authors[3], magazines[2], "Poirot's Greatest Cases"),
-            Article(authors[4], magazines[3], "The Old Man and the Sea: Reflections"),
-            Article(authors[4], magazines[4], "Writing War Stories")
+            Article("The Magic of World Building", authors[0], magazines[0]),
+            Article("From Rags to Riches: My Writing Journey", authors[0], magazines[4]), 
+            Article("Why We Love to Be Scared", authors[1], magazines[1]), 
+            Article("Writing Every Day: A Discipline", authors[1], magazines[4]), 
+            Article("Complex Characters in Fantasy", authors[2], magazines[0]), 
+            Article("When Will Winds of Winter Come Out?", authors[2], magazines[0]), 
+            Article("The Perfect Murder Mystery", authors[3], magazines[2]), 
+            Article("Poirot's Greatest Cases", authors[3], magazines[2]), 
+            Article("The Old Man and the Sea: Reflections", authors[4], magazines[3]), 
+            Article("Writing War Stories", authors[4], magazines[4])
         ]
         for article in articles:
             article.save()
