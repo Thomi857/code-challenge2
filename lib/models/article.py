@@ -64,3 +64,10 @@ class Article:
     def magazine(self):
         from lib.models.magazine import Magazine
         return Magazine.find_by_id(self.magazine_id)
+
+    def delete(self):
+        if self.id:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM articles WHERE id = ?", (self.id,))
+            conn.commit()

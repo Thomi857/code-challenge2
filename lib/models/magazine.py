@@ -142,15 +142,6 @@ class Magazine:
         rows = cursor.fetchall()
         return [Author(row[1], row[0]) for row in rows]
     
-    def contributors(self):
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute("""
-            SELECT DISTINCT a.* FROM authors a
-            JOIN articles ar ON a.id = ar.author_id
-            WHERE ar.magazine_id = ?
-        """, (self.id,))
-        return cursor.fetchall()
 
     # In Magazine class (class method)
     @classmethod
