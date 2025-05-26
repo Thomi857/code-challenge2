@@ -38,16 +38,16 @@ def seed_database(conn: Connection):
 
         # Create articles
         articles = [
-            Article("The Magic of World Building", authors[0], magazines[0]),
-            Article("From Rags to Riches: My Writing Journey", authors[0], magazines[4]), 
-            Article("Why We Love to Be Scared", authors[1], magazines[1]), 
-            Article("Writing Every Day: A Discipline", authors[1], magazines[4]), 
-            Article("Complex Characters in Fantasy", authors[2], magazines[0]), 
-            Article("When Will Winds of Winter Come Out?", authors[2], magazines[0]), 
-            Article("The Perfect Murder Mystery", authors[3], magazines[2]), 
-            Article("Poirot's Greatest Cases", authors[3], magazines[2]), 
-            Article("The Old Man and the Sea: Reflections", authors[4], magazines[3]), 
-            Article("Writing War Stories", authors[4], magazines[4])
+            Article("The Magic of World Building", authors[0].id, magazines[0].id),
+            Article("From Rags to Riches: My Writing Journey", authors[0].id, magazines[4].id),
+            Article("Why We Love to Be Scared", authors[1].id, magazines[1].id),
+            Article("Writing Every Day: A Discipline", authors[1].id, magazines[4].id),
+            Article("Complex Characters in Fantasy", authors[2].id, magazines[0].id),
+            Article("When Will Winds of Winter Come Out?", authors[2].id, magazines[0].id),
+            Article("The Perfect Murder Mystery", authors[3].id, magazines[2].id),
+            Article("Poirot's Greatest Cases", authors[3].id, magazines[2].id),
+            Article("The Old Man and the Sea: Reflections", authors[4].id, magazines[3].id),
+            Article("Writing War Stories", authors[4].id, magazines[4].id)
         ]
         for article in articles:
             article.save()
